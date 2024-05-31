@@ -1,0 +1,71 @@
+{
+    "name": "pktharindu/statamic-flexipics",
+    "authors": [
+        {
+            "name": "P. K. Tharindu"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Pktharindu\\FlexiPics\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Pktharindu\\FlexiPics\\Tests\\": "tests"
+        }
+    },
+    "require": {
+        "archtechx/enums": "^1.0",
+        "beberlei/assert": "^3.3",
+        "statamic/cms": "^4.0|^5.0"
+    },
+    "require-dev": {
+        "larastan/larastan": "^2.9",
+        "orchestra/testbench": "^9.0",
+        "pestphp/pest": "^2.0",
+        "tightenco/duster": "^2.7"
+    },
+    "config": {
+        "allow-plugins": {
+            "pixelfear/composer-dist-plugin": true,
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "statamic": {
+            "name": "Statamic FlexiPics",
+            "description": "Responsive Images for Statamic"
+        },
+        "laravel": {
+            "providers": [
+                "Pktharindu\\FlexiPics\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "phpstan": "./vendor/bin/phpstan analyse",
+        "lint": "./vendor/bin/duster lint",
+        "lint-fix": "./vendor/bin/duster fix",
+        "utest": "./vendor/bin/pest -p",
+        "update-snapshots": "./vendor/bin/pest --update-snapshots",
+        "test-watch": "./vendor/bin/pest --watch",
+        "coverage": "./vendor/bin/pest -p --coverage",
+        "test": [
+            "composer lint",
+            "composer utest"
+        ]
+    },
+    "scripts-descriptions": {
+        "phpstan": "Run PHPStan static analysis.",
+        "lint": "Check against default code style.",
+        "lint-fix": "Automatically apply default code style.",
+        "utest": "Run the application tests.",
+        "update-snapshots": "Rebuild the snapshots for the snapshot tests.",
+        "test": "Check against default code style and run the application tests.",
+        "test-watch": "Run the application tests on every file change.",
+        "coverage": "Run the application tests and generate code coverage report."
+    }
+}
