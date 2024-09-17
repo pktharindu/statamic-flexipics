@@ -3,6 +3,8 @@
 use Pktharindu\FlexiPics\Data\SourceCollection;
 use Pktharindu\FlexiPics\ValueObjects\Source;
 
+covers(SourceCollection::class);
+
 test('can create new collection with empty array', function () {
     $sourceCollection = new SourceCollection([]);
 

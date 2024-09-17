@@ -23,8 +23,8 @@
     "require-dev": {
         "larastan/larastan": "^2.9",
         "orchestra/testbench": "^9.0",
-        "pestphp/pest": "^2.0",
-        "tightenco/duster": "^2.7"
+        "pestphp/pest": "^3.0",
+        "tightenco/duster": "^3.0"
     },
     "config": {
         "allow-plugins": {

@@ -3,6 +3,8 @@
 use Assert\AssertionFailedException;
 use Pktharindu\FlexiPics\ValueObjects\Source;
 
+covers(Source::class);
+
 test('create new instance with valid arguments', function () {
     $type = 'image';
     $srcset = 'image.jpg';
@@ -28,9 +30,36 @@ test('equals method with identical objects', function () {
     expect($result)->toBeTrue();
 });
 
-test('equals method with different objects', function () {
+test('equals method with different types', function () {
     $source1 = new Source('image', 'image.jpg', 'screen', '100vw');
-    $source2 = new Source('video', 'video.mp4', 'screen', '50vw');
+    $source2 = new Source('video', 'image.jpg', 'screen', '100vw');
+
+    $result = $source1->equals($source2);
+
+    expect($result)->toBeFalse();
+});
+
+test('equals method with different srcset', function () {
+    $source1 = new Source('image', 'image1.jpg', 'screen', '100vw');
+    $source2 = new Source('image', 'image2.jpg', 'screen', '100vw');
+
+    $result = $source1->equals($source2);
+
+    expect($result)->toBeFalse();
+});
+
+test('equals method with different media', function () {
+    $source1 = new Source('image', 'image.jpg', 'screen', '100vw');
+    $source2 = new Source('image', 'image.jpg', 'screen2', '100vw');
+
+    $result = $source1->equals($source2);
+
+    expect($result)->toBeFalse();
+});
+
+test('equals method with different sizes', function () {
+    $source1 = new Source('image', 'image.jpg', 'screen', '100vw');
+    $source2 = new Source('image', 'image.jpg', 'screen', '50vw');
 
     $result = $source1->equals($source2);
 

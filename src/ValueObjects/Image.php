@@ -14,6 +14,7 @@ final readonly class Image
         public string $src,
         public string $class,
         public ?string $alt,
+        public ?string $caption,
         public ?string $loading,
         public ?int $width,
         public ?int $height,
