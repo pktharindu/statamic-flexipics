@@ -7,6 +7,8 @@ use Pktharindu\FlexiPics\FlexiPics;
 use Pktharindu\FlexiPics\ValueObjects\Breakpoint;
 use Statamic\Assets\Asset;
 
+covers(FlexiPics::class);
+
 it('can create flexipics instance with asset', function () {
     $asset = $this->mock(Asset::class);
 
@@ -79,8 +81,9 @@ it('can generate json output', function () {
         ->toHaveCount(2)
         ->sources->toBeEmpty()
         ->image->toBeArray()
-        ->toHaveCount(6)
+        ->toHaveCount(7)
         ->toHaveKey('alt')
+        ->toHaveKey('caption')
         ->toHaveKey('src')
         ->toHaveKey('class')
         ->toHaveKey('loading')

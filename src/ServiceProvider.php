@@ -2,6 +2,7 @@
 
 namespace Pktharindu\FlexiPics;
 
+use Illuminate\Support\Facades\Config;
 use Pktharindu\FlexiPics\Contracts\PictureBuilder;
 use Pktharindu\FlexiPics\Tags\Picture;
 use Statamic\Providers\AddonServiceProvider;
@@ -49,6 +50,6 @@ class ServiceProvider extends AddonServiceProvider
 
     private function bindPictureBuilder(): void
     {
-        $this->app->bind(PictureBuilder::class, config('statamic.flexipics.picture_builder'));
+        $this->app->bind(PictureBuilder::class, Config::string('statamic.flexipics.picture_builder'));
     }
 }

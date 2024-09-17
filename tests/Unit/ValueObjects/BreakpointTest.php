@@ -2,6 +2,8 @@
 
 use Pktharindu\FlexiPics\ValueObjects\Breakpoint;
 
+covers(Breakpoint::class);
+
 it('can create breakpoint with handle and size', function () {
     $handle = 'default';
     $size = '320|16:9|100vw';

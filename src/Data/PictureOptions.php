@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace Pktharindu\FlexiPics\Data;
 
+use Illuminate\Support\Facades\Config;
 use Ramsey\Collection\Exception\InvalidPropertyOrMethod;
 
 /**
  * Class PictureOptions.
  *
  * @property-read string|null $alt
+ * @property-read string|null $caption
  * @property-read string|null $class
  * @property-read bool $lazy
  */
@@ -18,15 +20,22 @@ class PictureOptions
     private ?bool $lazy;
     private bool $defaultLoading;
 
-    public function __construct(private ?string $alt = null, private ?string $class = null, ?bool $lazy = null)
+    public function __construct(private ?string $alt = null, private ?string $caption = null, private ?string $class = null, ?bool $lazy = null)
     {
-        $this->defaultLoading = (bool) config('statamic.flexipics.lazy_loading', true);
+        $this->defaultLoading = Config::boolean('statamic.flexipics.lazy_loading', true);
         $this->setLazy($lazy);
     }
 
     public function setAlt(?string $alt): PictureOptions
     {
         $this->alt = $alt;
+
+        return $this;
+    }
+
+    public function setCaption(?string $caption): PictureOptions
+    {
+        $this->caption = $caption;
 
         return $this;
     }

@@ -1,13 +1,17 @@
 <?php
 
+use Illuminate\Support\Facades\Config;
 use Pktharindu\FlexiPics\Data\PictureOptions;
 use Ramsey\Collection\Exception\InvalidPropertyOrMethod;
 
+covers(PictureOptions::class);
+
 it('can be instantiated with all arguments', function () {
     $alt = 'example alt';
+    $caption = 'example caption';
     $class = 'example-class';
 
-    $pictureOptions = new PictureOptions($alt, $class, true);
+    $pictureOptions = new PictureOptions($alt, $caption, $class, true);
 
     expect($pictureOptions)->toBeInstanceOf(PictureOptions::class)
         ->alt->toEqual($alt)
@@ -59,7 +63,7 @@ it('throws InvalidPropertyOrMethod exception if property does not exist', functi
     $pictureOptions->invalidProperty;
 });
 
-test('setAlt method sets alt property', function () {
+test('it can set alt property', function () {
     $alt = 'example alt';
     $pictureOptions = new PictureOptions;
 
@@ -68,7 +72,16 @@ test('setAlt method sets alt property', function () {
     expect($pictureOptions->alt)->toEqual($alt);
 });
 
-test('setClass method sets class property', function () {
+test('it can set caption property', function () {
+    $caption = 'example caption';
+    $pictureOptions = new PictureOptions;
+
+    $pictureOptions->setCaption($caption);
+
+    expect($pictureOptions->caption)->toEqual($caption);
+});
+
+test('it can set class property', function () {
     $class = 'example-class';
     $pictureOptions = new PictureOptions;
 
@@ -77,7 +90,7 @@ test('setClass method sets class property', function () {
     expect($pictureOptions->class)->toEqual($class);
 });
 
-test('setLazy method sets lazy property', function () {
+test('it can set lazy property', function () {
     $pictureOptions = new PictureOptions;
 
     $pictureOptions->setLazy(false);
@@ -85,7 +98,7 @@ test('setLazy method sets lazy property', function () {
     expect($pictureOptions->lazy)->toBeFalse();
 });
 
-test('setLazy method sets lazy property to config default if null is passed', function () {
+test('it can set lazy property to config default if null is passed', function () {
     Config::set('statamic.flexipics.lazy_loading', true);
     $pictureOptions = new PictureOptions;
 

@@ -15,6 +15,8 @@ interface PictureBuilder
 
     public function alt(?string $text): self;
 
+    public function caption(?string $html): self;
+
     public function lazy(?bool $lazy): self;
 
     public function orientation(Orientation $orientation): self;
