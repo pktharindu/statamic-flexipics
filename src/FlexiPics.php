@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pktharindu\FlexiPics;
 
 use Assert\AssertionFailedException;
@@ -38,7 +40,7 @@ class FlexiPics implements PictureBuilder
     public function __construct()
     {
         $this->breakpoints = new BreakpointCollection;
-        $this->orientation = Orientation::LANDSCAPE;
+        $this->orientation = Orientation::Landscape;
         $this->pictureData = new PictureData;
         $this->pictureOptions = new PictureOptions;
     }
@@ -142,7 +144,7 @@ class FlexiPics implements PictureBuilder
         $this->generateDefaultSources($this->breakpoints->default());
         $this->pictureData->setImage($this->makeImage());
 
-        return $this->mode->in([Mode::JSON, Mode::Array]) ? $this->json() : $this->html();
+        return $this->mode->in([Mode::Json, Mode::Array]) ? $this->json() : $this->html();
     }
 
     private function setAsset(Asset $asset): self
@@ -381,8 +383,8 @@ class FlexiPics implements PictureBuilder
         $height = isset($sizeParts[1]) ? (float) $sizeParts[1] : (is_float($ratio) ? $width * $ratio : 0.0);
 
         return new Size(
-            $this->orientation->is(Orientation::LANDSCAPE) ? $width : $height,
-            $this->orientation->is(Orientation::PORTRAIT) ? $width : $height
+            $this->orientation->is(Orientation::Landscape) ? $width : $height,
+            $this->orientation->is(Orientation::Portrait) ? $width : $height
         );
     }
 
