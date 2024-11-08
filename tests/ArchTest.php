@@ -9,15 +9,15 @@ describe('Architecture', function () {
     test('classes')
         ->expect($namespace)
         ->toBeClasses()
-        ->ignoring("$namespace\Enums")
-        ->ignoring("$namespace\Contracts");
+        ->ignoring("{$namespace}\Enums")
+        ->ignoring("{$namespace}\Contracts");
 
     test('contracts')
-        ->expect("$namespace\Contracts")
+        ->expect("{$namespace}\Contracts")
         ->toBeInterfaces();
 
     test('data')
-        ->expect("$namespace\Data")
+        ->expect("{$namespace}\Data")
         ->toBeClasses()
         ->not->toHaveProtectedMethods()
         ->not->toBeAbstract();
@@ -25,12 +25,12 @@ describe('Architecture', function () {
     test('enums')
         ->expect($namespace)
         ->not->toBeEnums()
-        ->ignoring("$namespace\Enums")
-        ->and("$namespace\Enums")
+        ->ignoring("{$namespace}\Enums")
+        ->and("{$namespace}\Enums")
         ->toBeEnums();
 
     test('value objects')
-        ->expect("$namespace\ValueObjects")
+        ->expect("{$namespace}\ValueObjects")
         ->toBeReadonly()
         ->toBeFinal();
 
@@ -43,4 +43,3 @@ describe('Architecture', function () {
         ->toUseStrictTypes()
         ->toUseStrictEquality();
 });
-
