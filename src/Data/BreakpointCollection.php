@@ -39,7 +39,7 @@ class BreakpointCollection extends Collection
 
     public function getByHandle(string $handle, ?string $default = null): ?string
     {
-        return $this->firstWhere('handle', $handle)?->size ?? $default;
+        return $this->firstWhere('handle', $handle)->size ?? $default;
     }
 
     /**
