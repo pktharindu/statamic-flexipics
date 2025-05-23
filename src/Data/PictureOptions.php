@@ -17,7 +17,7 @@ use Ramsey\Collection\Exception\InvalidPropertyOrMethod;
  */
 class PictureOptions
 {
-    private ?bool $lazy;
+    private ?bool $lazy = null;
     private bool $defaultLoading;
 
     public function __construct(private ?string $alt = null, private ?string $caption = null, private ?string $class = null, ?bool $lazy = null)

@@ -159,6 +159,7 @@ class FlexiPics implements PictureBuilder
      */
     private function html(): string
     {
+        /** @phpstan-ignore-next-line */
         return view('flexipics::flexipics', $this->pictureData->toArray())->render();
     }
 
