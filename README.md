@@ -7,6 +7,11 @@
 ![Packagist](https://img.shields.io/packagist/dt/pktharindu/statamic-flexipics.svg?style=for-the-badge)
 ![GitHub](https://img.shields.io/github/license/pktharindu/statamic-flexipics.svg?style=for-the-badge)
 
+![Statamic 4.0+](https://img.shields.io/badge/Statamic-4.0+-FF269E?style=for-the-badge&link=https://statamic.com)
+![Packagist](https://img.shields.io/packagist/v/pktharindu/statamic-flexipics.svg?style=for-the-badge) 
+![Packagist](https://img.shields.io/packagist/dt/pktharindu/statamic-flexipics.svg?style=for-the-badge)
+![GitHub](https://img.shields.io/github/license/pktharindu/statamic-flexipics.svg?style=for-the-badge)
+
 ## Features
 
 Statamic Flexipics provides a comprehensive solution for responsive images in your Statamic projects:
