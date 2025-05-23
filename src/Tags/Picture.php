@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pktharindu\FlexiPics\Tags;
 
 use Assert\AssertionFailedException;
@@ -45,7 +47,7 @@ class Picture extends Tags
     {
         $asset = $this->params->get(['src', 'id', 'path']) ?? '';
 
-        return $this->output($asset, Mode::JSON);
+        return $this->output($asset, Mode::Json);
     }
 
     /**
@@ -54,7 +56,7 @@ class Picture extends Tags
      */
     public function mode(): Mode
     {
-        return Mode::tryFrom($this->params->get('output', '')) ?? Mode::HTML;
+        return Mode::tryFrom($this->params->get('output', '')) ?? Mode::Html;
     }
 
     /**
@@ -63,7 +65,7 @@ class Picture extends Tags
      */
     public function orientation(): Orientation
     {
-        return Orientation::tryFrom($this->params->get(['orientation', 'ori'], '')) ?? Orientation::LANDSCAPE;
+        return Orientation::tryFrom($this->params->get(['orientation', 'ori'], '')) ?? Orientation::Landscape;
     }
 
     /**
