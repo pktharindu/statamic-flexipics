@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pktharindu\FlexiPics\ValueObjects;
 
 use Assert\Assertion;

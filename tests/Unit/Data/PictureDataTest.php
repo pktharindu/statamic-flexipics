@@ -5,6 +5,8 @@ use Pktharindu\FlexiPics\Data\SourceCollection;
 use Pktharindu\FlexiPics\ValueObjects\Image;
 use Pktharindu\FlexiPics\ValueObjects\Source;
 
+covers(PictureData::class);
+
 test('instantiation without arguments', function () {
     $pictureData = new PictureData;
 
@@ -13,13 +15,13 @@ test('instantiation without arguments', function () {
 
 test('instantiation with just the image', function () {
     $pictureData = new PictureData;
-    $pictureData->setImage(new Image('src', 'class', 'alt', 'lazy', 100, 200));
+    $pictureData->setImage(new Image('src', 'class', 'alt', 'caption', 'lazy', 100, 200));
 
     expect($pictureData->toArray()['sources'])->toBeInstanceOf(SourceCollection::class);
 });
 
 test('set image', function () {
-    $image = new Image('src', 'class', 'alt', 'loading', 100, 200);
+    $image = new Image('src', 'class', 'alt', 'caption', 'loading', 100, 200);
     $pictureData = new PictureData;
 
     $pictureData->setImage($image);
@@ -33,7 +35,7 @@ test('add sources', function () {
     $pictureData = new PictureData;
 
     $pictureData->addSources($source1, $source2);
-    $pictureData->setImage(new Image('src', 'class', 'alt', 'loading', 100, 200));
+    $pictureData->setImage(new Image('src', 'class', 'alt', 'caption', 'loading', 100, 200));
 
     $sources = $pictureData->toArray()['sources'];
     expect($sources)->toHaveCount(2)
@@ -47,7 +49,7 @@ test('add sources with null values', function () {
     $pictureData = new PictureData;
 
     $pictureData->addSources($source1, $source2);
-    $pictureData->setImage(new Image('src', 'class', 'alt', 'loading', 100, 200));
+    $pictureData->setImage(new Image('src', 'class', 'alt', 'caption', 'loading', 100, 200));
 
     $sources = $pictureData->toArray()['sources'];
     expect($sources)->toHaveCount(2)
@@ -56,7 +58,7 @@ test('add sources with null values', function () {
 });
 
 test('set image with null values', function () {
-    $image = new Image('src', 'class', null, null, null, null);
+    $image = new Image('src', 'class', null, null, null, null, null);
     $pictureData = new PictureData;
 
     $pictureData->setImage($image);
@@ -70,7 +72,7 @@ test('add sources with duplicate values', function () {
     $pictureData = new PictureData;
 
     $pictureData->addSources($source1, $source2, $source1);
-    $pictureData->setImage(new Image('src', 'class', 'alt', 'loading', 100, 200));
+    $pictureData->setImage(new Image('src', 'class', 'alt', 'caption', 'loading', 100, 200));
 
     $sources = $pictureData->toArray()['sources'];
     expect($sources)->toHaveCount(2)
@@ -80,7 +82,7 @@ test('add sources with duplicate values', function () {
 
 test('add sources without arguments', function () {
     $pictureData = new PictureData;
-    $pictureData->setImage(new Image('src', 'class', 'alt', 'lazy', 100, 200));
+    $pictureData->setImage(new Image('src', 'class', 'alt', 'caption', 'lazy', 100, 200));
 
     $pictureData->addSources();
 
@@ -91,7 +93,7 @@ test('add sources without arguments', function () {
 
 test('to array', function () {
     $pictureData = new PictureData;
-    $pictureData->setImage($image = new Image('src', 'class', 'alt', 'loading', 100, 200));
+    $pictureData->setImage($image = new Image('src', 'class', 'alt', 'caption', 'loading', 100, 200));
     $expectedArray = [
         'sources' => new SourceCollection,
         'image' => $image,
@@ -104,8 +106,8 @@ test('to array', function () {
 
 test('to json', function () {
     $pictureData = new PictureData;
-    $pictureData->setImage(new Image('src', 'class', 'alt', 'lazy', 100, 200));
-    $expectedJson = '{"sources":[],"image":{"src":"src","class":"class","alt":"alt","loading":"lazy","width":100,"height":200}}';
+    $pictureData->setImage(new Image('src', 'class', 'alt', 'caption', 'lazy', 100, 200));
+    $expectedJson = '{"sources":[],"image":{"src":"src","class":"class","alt":"alt","caption":"caption","loading":"lazy","width":100,"height":200}}';
 
     $result = $pictureData->toJson();
 

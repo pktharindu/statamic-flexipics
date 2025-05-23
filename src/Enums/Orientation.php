@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pktharindu\FlexiPics\Enums;
 
 use ArchTech\Enums\Comparable;
@@ -8,7 +10,7 @@ enum Orientation: string
 {
     use Comparable;
 
-    case LANDSCAPE = 'landscape';
+    case Landscape = 'landscape';
 
-    case PORTRAIT = 'portrait';
+    case Portrait = 'portrait';
 }

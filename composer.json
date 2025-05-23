@@ -23,8 +23,9 @@
     "require-dev": {
         "larastan/larastan": "^2.9",
         "orchestra/testbench": "^9.0",
-        "pestphp/pest": "^2.0",
-        "tightenco/duster": "^2.7"
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-type-coverage": "^3.1",
+        "tightenco/duster": "^3.0"
     },
     "config": {
         "allow-plugins": {
@@ -51,8 +52,8 @@
         "lint-fix": "./vendor/bin/duster fix",
         "utest": "./vendor/bin/pest -p",
         "update-snapshots": "./vendor/bin/pest --update-snapshots",
-        "test-watch": "./vendor/bin/pest --watch",
         "coverage": "./vendor/bin/pest -p --coverage",
+        "type-coverage": "./vendor/bin/pest -p --type-coverage",
         "test": [
             "composer lint",
             "composer utest"
@@ -65,7 +66,7 @@
         "utest": "Run the application tests.",
         "update-snapshots": "Rebuild the snapshots for the snapshot tests.",
         "test": "Check against default code style and run the application tests.",
-        "test-watch": "Run the application tests on every file change.",
-        "coverage": "Run the application tests and generate code coverage report."
+        "coverage": "Run the application tests and generate code coverage report.",
+        "type-coverage": "Run the application tests and generate type coverage report."
     }
 }

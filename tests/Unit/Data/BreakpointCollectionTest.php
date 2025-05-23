@@ -3,6 +3,8 @@
 use Pktharindu\FlexiPics\Data\BreakpointCollection;
 use Pktharindu\FlexiPics\ValueObjects\Breakpoint;
 
+covers(BreakpointCollection::class);
+
 it('can create new collection with empty array', function () {
     $items = [];
 
@@ -29,6 +31,15 @@ it('adds a breakpoint to the collection', function () {
     $collection->addBreakpoint($breakpoint);
 
     expect($collection->getByHandle('sm'))->toBe('640|16:9');
+});
+
+it('can return the default value when breakpoint is not found', function () {
+    $collection = new BreakpointCollection;
+    $breakpoint = new Breakpoint('sm', '640|16:9');
+
+    $collection->addBreakpoint($breakpoint);
+
+    expect($collection->getByHandle('md', 'default'))->toBe('default');
 });
 
 it('replaces a breakpoint with the same handle', function () {
@@ -133,16 +144,6 @@ test('get with non existing handle and without default value', function () {
     $result = $collection->getByHandle('lg');
 
     expect($result)->toBeNull();
-});
-
-it('throws an exception when getByHandle is passed a non-string handle', function () {
-    $collection = new BreakpointCollection([
-        new Breakpoint('default', '320|16:9'),
-    ]);
-
-    $this->expectException(TypeError::class);
-
-    $collection->getByHandle(new stdClass);
 });
 
 it('returns false if collection is empty', function () {

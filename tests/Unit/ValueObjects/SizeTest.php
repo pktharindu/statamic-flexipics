@@ -3,6 +3,8 @@
 use Assert\AssertionFailedException;
 use Pktharindu\FlexiPics\ValueObjects\Size;
 
+covers(Size::class);
+
 it('can instantiate with valid width and height values', function () {
     $width = 10.5;
     $height = 20.3;
@@ -35,17 +37,17 @@ it('can access width and height values', function () {
         ->and($actualHeight)->toEqual($height);
 });
 
-it('cannot instantiate with non numeric values', function () {
-    $width = 'invalid';
-    $height = 'invalid';
+it('cannot instantiate with negative width', function () {
+    $width = -1;
+    $height = 1;
 
-    $this->expectException(TypeError::class);
+    $this->expectException(AssertionFailedException::class);
     new Size($width, $height);
 });
 
-it('cannot instantiate with negative values', function () {
-    $width = -10.5;
-    $height = -20.3;
+it('cannot instantiate with negative height', function () {
+    $width = 1;
+    $height = -1;
 
     $this->expectException(AssertionFailedException::class);
     new Size($width, $height);

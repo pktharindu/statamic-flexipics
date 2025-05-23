@@ -7,6 +7,8 @@ use Pktharindu\FlexiPics\FlexiPics;
 use Pktharindu\FlexiPics\ValueObjects\Breakpoint;
 use Statamic\Assets\Asset;
 
+covers(FlexiPics::class);
+
 it('can create flexipics instance with asset', function () {
     $asset = $this->mock(Asset::class);
 
@@ -37,8 +39,9 @@ it('can generate html output', function () {
     $output = FlexiPics::make($asset)
         ->class('image-class')
         ->lazy(true)
-        ->orientation(Orientation::LANDSCAPE)
-        ->mode(Mode::HTML)
+        ->orientation(Orientation::Landscape)
+        ->caption('image caption')
+        ->mode(Mode::Html)
         ->generate();
 
     expect($output)->toContain(
@@ -50,7 +53,8 @@ it('can generate html output', function () {
         'loading="lazy"',
         'width="250"',
         'height="100"',
-        '</picture>'
+        '</picture>',
+        'image caption'
     );
 });
 
@@ -70,8 +74,8 @@ it('can generate json output', function () {
     $output = FlexiPics::make($asset)
         ->class('image-class')
         ->lazy(true)
-        ->orientation(Orientation::LANDSCAPE)
-        ->mode(Mode::JSON)
+        ->orientation(Orientation::Landscape)
+        ->mode(Mode::Json)
         ->generate();
 
     expect($output)->toBeJson()
@@ -79,8 +83,9 @@ it('can generate json output', function () {
         ->toHaveCount(2)
         ->sources->toBeEmpty()
         ->image->toBeArray()
-        ->toHaveCount(6)
+        ->toHaveCount(7)
         ->toHaveKey('alt')
+        ->toHaveKey('caption')
         ->toHaveKey('src')
         ->toHaveKey('class')
         ->toHaveKey('loading')
@@ -130,7 +135,7 @@ it('can generate sources for breakpoints', function () {
     $output = FlexiPics::make($asset)
         ->breakpoints(new Breakpoint('default', '320'), new Breakpoint('sm', '640'), new Breakpoint('md', '768|auto'))
         ->default('320|16:9|100vw')
-        ->mode(Mode::JSON)
+        ->mode(Mode::Json)
         ->generate();
 
     expect($output)->toBeJson()
@@ -157,8 +162,8 @@ it('can handle orientation', function () {
 
     $output = FlexiPics::make($asset)
         ->alt('image alt')
-        ->orientation(Orientation::PORTRAIT)
-        ->mode(Mode::JSON)
+        ->orientation(Orientation::Portrait)
+        ->mode(Mode::Json)
         ->generate();
 
     expect($output)->toBeJson()

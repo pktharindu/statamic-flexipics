@@ -4,6 +4,8 @@ use Assert\AssertionFailedException;
 use Pktharindu\FlexiPics\ValueObjects\Size;
 use Pktharindu\FlexiPics\ValueObjects\SourceData;
 
+covers(SourceData::class);
+
 it('can instantiate with non empty array and null sizes', function () {
     $srcset = [new Size(10, 20), new Size(30, 40)];
     $sizes = null;

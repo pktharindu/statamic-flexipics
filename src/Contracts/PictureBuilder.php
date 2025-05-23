@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pktharindu\FlexiPics\Contracts;
 
 use Pktharindu\FlexiPics\Enums\Mode;
@@ -14,6 +16,8 @@ interface PictureBuilder
     public function class(?string $class): self;
 
     public function alt(?string $text): self;
+
+    public function caption(?string $html): self;
 
     public function lazy(?bool $lazy): self;
 

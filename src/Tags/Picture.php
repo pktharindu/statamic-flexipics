@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pktharindu\FlexiPics\Tags;
 
 use Assert\AssertionFailedException;
+use Illuminate\Support\Facades\Config;
 use Pktharindu\FlexiPics\Contracts\PictureBuilder;
 use Pktharindu\FlexiPics\Enums\Mode;
 use Pktharindu\FlexiPics\Enums\Orientation;
@@ -17,9 +20,7 @@ class Picture extends Tags
      */
     protected static $aliases = ['flexipics'];
 
-    public function __construct(protected PictureBuilder $pictureBuilder)
-    {
-    }
+    public function __construct(protected PictureBuilder $pictureBuilder) {}
 
     /**
      * {{ picture src="[src]" }}.
@@ -46,7 +47,7 @@ class Picture extends Tags
     {
         $asset = $this->params->get(['src', 'id', 'path']) ?? '';
 
-        return $this->output($asset, Mode::JSON);
+        return $this->output($asset, Mode::Json);
     }
 
     /**
@@ -55,7 +56,7 @@ class Picture extends Tags
      */
     public function mode(): Mode
     {
-        return Mode::tryFrom($this->params->get('output', '')) ?? Mode::HTML;
+        return Mode::tryFrom($this->params->get('output', '')) ?? Mode::Html;
     }
 
     /**
@@ -64,7 +65,7 @@ class Picture extends Tags
      */
     public function orientation(): Orientation
     {
-        return Orientation::tryFrom($this->params->get(['orientation', 'ori'], '')) ?? Orientation::LANDSCAPE;
+        return Orientation::tryFrom($this->params->get(['orientation', 'ori'], '')) ?? Orientation::Landscape;
     }
 
     /**
@@ -74,7 +75,7 @@ class Picture extends Tags
      */
     public function breakpoints(): array
     {
-        $breakpoints = $this->params->only(array_keys(config('statamic.flexipics.breakpoints')))->all();
+        $breakpoints = $this->params->only(array_keys(Config::array('statamic.flexipics.breakpoints')))->all();
 
         return array_map(static fn (?string $params, int|string $handle) => new Breakpoint((string) $handle, $params), $breakpoints, array_keys($breakpoints));
     }
@@ -87,6 +88,7 @@ class Picture extends Tags
         return $this->pictureBuilder::make($asset)
             ->class($this->params->get('class'))
             ->alt($this->params->get('alt'))
+            ->caption($this->params->get('caption'))
             ->lazy($this->params->get('lazy'))
             ->orientation($this->orientation())
             ->breakpoints(...$this->breakpoints())

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pktharindu\FlexiPics\Data;
 
 use Assert\Assertion;
@@ -45,10 +47,6 @@ class BreakpointCollection extends Collection
      */
     public function hasAnyHandle(string|array $handle): bool
     {
-        if ($this->isEmpty()) {
-            return false;
-        }
-
         $handles = is_array($handle) ? $handle : func_get_args();
 
         return $this->contains(fn (Breakpoint $breakpoint) => in_array($breakpoint->handle, $handles, true));

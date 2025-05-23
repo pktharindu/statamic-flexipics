@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pktharindu\FlexiPics\Enums;
 
 use ArchTech\Enums\Comparable;
@@ -8,9 +10,9 @@ enum Mode: string
 {
     use Comparable;
 
-    case HTML = 'html';
+    case Html = 'html';
 
-    case JSON = 'json';
+    case Json = 'json';
 
     case Array = 'array';
 }

@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Pktharindu\FlexiPics;
 
 use Assert\AssertionFailedException;
 use Exception;
+use Illuminate\Support\Facades\Config;
 use InvalidArgumentException;
 use Pktharindu\FlexiPics\Contracts\PictureBuilder;
 use Pktharindu\FlexiPics\Data\BreakpointCollection;
@@ -37,7 +40,7 @@ class FlexiPics implements PictureBuilder
     public function __construct()
     {
         $this->breakpoints = new BreakpointCollection;
-        $this->orientation = Orientation::LANDSCAPE;
+        $this->orientation = Orientation::Landscape;
         $this->pictureData = new PictureData;
         $this->pictureOptions = new PictureOptions;
     }
@@ -72,6 +75,13 @@ class FlexiPics implements PictureBuilder
     public function alt(?string $text): self
     {
         $this->pictureOptions->setAlt($text);
+
+        return $this;
+    }
+
+    public function caption(?string $html): self
+    {
+        $this->pictureOptions->setCaption($html);
 
         return $this;
     }
@@ -134,7 +144,7 @@ class FlexiPics implements PictureBuilder
         $this->generateDefaultSources($this->breakpoints->default());
         $this->pictureData->setImage($this->makeImage());
 
-        return $this->mode->in([Mode::JSON, Mode::Array]) ? $this->json() : $this->html();
+        return $this->mode->in([Mode::Json, Mode::Array]) ? $this->json() : $this->html();
     }
 
     private function setAsset(Asset $asset): self
@@ -202,12 +212,12 @@ class FlexiPics implements PictureBuilder
 
     private function defaultFormats(): string
     {
-        return config('statamic.flexipics.default_filetype');
+        return Config::string('statamic.flexipics.default_filetype');
     }
 
     private function shouldUseOriginalFormatAsFallback(): bool
     {
-        return config('statamic.flexipics.use_original_format_as_fallback') && $this->originalFormat() !== $this->defaultFormats();
+        return Config::boolean('statamic.flexipics.use_original_format_as_fallback') && $this->originalFormat() !== $this->defaultFormats();
     }
 
     /**
@@ -260,7 +270,7 @@ class FlexiPics implements PictureBuilder
     {
         $alt = $this->pictureOptions->alt ?? $this->asset->data()->get('alt');
 
-        if ($alt && config('statamic.flexipics.alt_fullstop')) {
+        if ($alt && Config::boolean('statamic.flexipics.alt_fullstop')) {
             $alt = Stringy::ensureRight(strip_tags($alt), '.');
         }
 
@@ -294,6 +304,7 @@ class FlexiPics implements PictureBuilder
             src: $this->makeGlideUrl(['width' => $this->smallestSrcWidth(), 'fit' => 'crop_focal']),
             class: $this->makeClass(),
             alt: $this->makeAlt(),
+            caption: $this->pictureOptions->caption,
             loading: $this->pictureOptions->lazy ? 'lazy' : null,
             width: $this->asset->width(),
             height: $this->asset->height(),
@@ -359,7 +370,7 @@ class FlexiPics implements PictureBuilder
      */
     private function multipliers(SourceData $sourceData): array
     {
-        return $sourceData->sizes ? config('statamic.flexipics.size_multipliers') : config('statamic.flexipics.dpr');
+        return $sourceData->sizes ? Config::array('statamic.flexipics.size_multipliers') : Config::array('statamic.flexipics.dpr');
     }
 
     /**
@@ -372,8 +383,8 @@ class FlexiPics implements PictureBuilder
         $height = isset($sizeParts[1]) ? (float) $sizeParts[1] : (is_float($ratio) ? $width * $ratio : 0.0);
 
         return new Size(
-            $this->orientation->is(Orientation::LANDSCAPE) ? $width : $height,
-            $this->orientation->is(Orientation::PORTRAIT) ? $width : $height
+            $this->orientation->is(Orientation::Landscape) ? $width : $height,
+            $this->orientation->is(Orientation::Portrait) ? $width : $height
         );
     }
 
@@ -411,7 +422,7 @@ class FlexiPics implements PictureBuilder
 
     private function smallestSrcWidth(): int
     {
-        return config('statamic.flexipics.min_width');
+        return Config::integer('statamic.flexipics.min_width');
     }
 
     /**
@@ -419,6 +430,6 @@ class FlexiPics implements PictureBuilder
      */
     private function defaultBreakpoints(): array
     {
-        return (array) config('statamic.flexipics.breakpoints');
+        return Config::array('statamic.flexipics.breakpoints');
     }
 }
