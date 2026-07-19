@@ -1,5 +1,7 @@
 <?php
 
+use Pktharindu\FlexiPics\FlexiPics;
+
 return [
 
     /*
@@ -13,7 +15,7 @@ return [
     |
     */
 
-    'picture_builder' => Pktharindu\FlexiPics\FlexiPics::class,
+    'picture_builder' => FlexiPics::class,
 
     /*
     |--------------------------------------------------------------------------
