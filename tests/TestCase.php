@@ -4,8 +4,10 @@ namespace Pktharindu\FlexiPics\Tests;
 
 use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
-use Statamic\Extend\Manifest;
+use Pktharindu\FlexiPics\ServiceProvider;
+use Statamic\Addons\Manifest;
 use Statamic\Facades\Stache;
+use Statamic\Providers\StatamicServiceProvider;
 use Statamic\Statamic;
 
 abstract class TestCase extends OrchestraTestCase
@@ -32,8 +34,8 @@ abstract class TestCase extends OrchestraTestCase
     protected function getPackageProviders($app): array
     {
         return [
-            \Statamic\Providers\StatamicServiceProvider::class,
-            \Pktharindu\FlexiPics\ServiceProvider::class,
+            StatamicServiceProvider::class,
+            ServiceProvider::class,
         ];
     }
 
